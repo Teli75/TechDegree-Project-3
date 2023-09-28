@@ -12,22 +12,42 @@ The "Job Role" section has an <input type="text"> field where users can enter a 
 
 Hide the "text field" with the id of "other-job-role" so it is not displayed when the form first loads.*/
 
-document.querySelector("#other-job-role").style.visibility = "hidden";
+
 //const otherJobSelected = document.querySelector('option[value="Other"]');
 //Program the "Job Role" <select> element to listen for changes. When a change is detected, display/hide the "text field" based on the selection in the drop-down menu.
 
-const options = document.querySelector("#title");
+const jobRoleSelect = document.querySelector("#title");
+const otherJobRole = document.querySelector('#other-job-role');
 
-options.addEventListener("change", (e) => {
-   console.log(e.target.value);
+//hides "other job role" text box by default
+otherJobRole.hidden='true';
+
+console.log(jobRoleSelect);
+console.log(otherJobRole);
+
+jobRoleSelect.addEventListener("change", (e) => {
+   console.log(`you selected: ${e.target.value}`);
 
 
     if (e.target.value == "other") {
-      document.querySelector("#other-job-role").style.display = "block";
+      otherJobRole.style.display="block"
+      otherJobRole.hidden='false';
+      
     } else {
-      document.querySelector("#other-job-role").style.visibility= "hidden";
+      otherJobRole.style.visibility='hidden';
+      otherJobRole.hidden='true';
+      //otherJobRole.display='none'
     }
-  
 });
+
+//design select element
+const designSelectElement = document.querySelector('#design');
+console.log(designSelectElement);
+
+const colorSelectElment = document.querySelector('#color');
+console.log(colorSelectElment);
+//color select element
+
+//
 
 
