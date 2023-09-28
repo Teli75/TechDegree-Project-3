@@ -22,8 +22,8 @@ const otherJobRole = document.querySelector('#other-job-role');
 //hides "other job role" text box by default
 otherJobRole.hidden='true';
 
-console.log(jobRoleSelect);
-console.log(otherJobRole);
+// console.log(jobRoleSelect);
+// console.log(otherJobRole);
 
 jobRoleSelect.addEventListener("change", (e) => {
    console.log(`you selected: ${e.target.value}`);
@@ -31,22 +31,58 @@ jobRoleSelect.addEventListener("change", (e) => {
 
     if (e.target.value == "other") {
       otherJobRole.style.display="block"
-      otherJobRole.hidden='false';
+      otherJobRole.removeAttribute('hidden');
       
     } else {
-      otherJobRole.style.visibility='hidden';
+      //otherJobRole.style.visibility='hidden';
+      //otherJobRole.removeAttribute('style[display: block]');
+      otherJobRole.style.display='none';
       otherJobRole.hidden='true';
       //otherJobRole.display='none'
     }
 });
 
-//design select element
+//Allows user to access colors available depending on design chosen
 const designSelectElement = document.querySelector('#design');
-console.log(designSelectElement);
+const colorSelectElement = document.querySelector('#color');
+const colorOptions = colorSelectElement.children;
 
-const colorSelectElment = document.querySelector('#color');
-console.log(colorSelectElment);
-//color select element
+colorSelectElement.disabled='true';
+
+designSelectElement.addEventListener('change', (event) => {
+  //colorSelectElement.disabled='false';
+  colorSelectElement.removeAttribute('disabled');
+  for (let i=1; i < colorOptions.length; i++){
+
+    const designTheme = event.target.value;
+    const colorTheme = colorSelectElement[i].getAttribute('data-theme');
+    
+    console.log(`current design theme${i}: ${designTheme}`);
+    console.log(`current color theme${i}: ${colorTheme}`);
+
+    //Displays colors available if theme matches
+    if(colorTheme == designTheme){
+      console.log(colorSelectElement[i]);
+     colorSelectElement[i].removeAttribute('hidden');
+        
+    } else {
+      colorSelectElement[i].hidden='true';
+    }
+  }
+  });
+
+const registerForActivities = document.querySelector('#activities');
+const total = document.querySelector('#activities-cost');
+const totalCost = 0;
+
+registerForActivities.addEventListener('change', () => {
+  const costPerActivity = registerForActivities.getAttribute(+'data-cost');
+})
+
+console.log(registerForActivities);
+console.log(total);
+
+
 
 //
 
