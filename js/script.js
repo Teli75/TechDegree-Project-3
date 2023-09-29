@@ -65,7 +65,8 @@ designSelectElement.addEventListener("change", (event) => {
   }
 });
 
-const activities = document.querySelectorAll("#activities input");
+const activities = document.querySelectorAll("#activities");
+//why don't I need input after activities?"
 const total = document.querySelector("#activities-cost");
 let totalCost = 0;
 
@@ -124,3 +125,69 @@ paymentMethod.addEventListener("change", (e) => {
 
 
 const form = document.querySelector('form');
+const email = document.querySelector('#email');
+const cardNumber = document.querySelector('#cc-num');
+const zipCode = document.querySelector('#zip');
+const cvv = document.querySelector('#cvv');
+
+console.log(form);
+console.log(email);
+console.log(cardNumber);
+console.log(zipCode);
+console.log(cvv);
+
+form.addEventListener('submit', (event) =>{
+  const nameValue = nameElement.value;
+  const emailValue = email.value;
+  const cardValue = cardNumber.value;
+  const zipValue = zipCode.value;
+  const cvvValue = cvv.value;
+
+  // const nameValidator = () => {
+  //   const nameValue = nameElement.value;
+  //   console.log(`Name value is: ${nameValue}`);
+  //   // 2. Create a variable named `nameIsValid` to store the test value for this input.
+  
+       const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
+       const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue);
+       const cardIsValid = /^\d{13,16}$/.test(cardValue);
+       const zipIsValid = /^\d{5}$/.test(zipValue);
+       const cvvIsValid = /^\d{3}$/.test(cvvValue);
+      
+
+
+      //  if (nameIsValid){
+      //   console.log(`name is valid`);
+      //     event.preventDefault();
+      //  } 
+      //  if (emailIsValid){
+      //   console.log(`email is valid`);
+      //     event.preventDefault();
+      //  } else {
+      //   event.preventDefault();
+      //  }
+      //  if (cardIsValid){
+      //   console.log(`card is valid`);
+      //     event.preventDefault();
+      //  } else {
+      //   event.preventDefault();
+      //  }
+      //  if (zipIsValid){
+      //   console.log(`zip is valid`);
+      //     event.preventDefault();
+      //  } else {
+      //   event.preventDefault();
+      //  }
+      //  if (cvvIsValid){
+      //   console.log(`cvv is valid`);
+      //     event.preventDefault();
+      //  } else {
+      //   event.preventDefault();
+      //  }
+        if (nameIsValid && emailIsValid && cardIsValid && zipIsValid && cvvIsValid){
+          console.log('do nothing');
+        } else {
+          preventDefault();
+        }
+  //event.preventDefault();
+})
