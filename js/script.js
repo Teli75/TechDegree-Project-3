@@ -3,7 +3,8 @@
 
 // Use the focus() method on the <input type="text"> element for the "Name" field.
 
-document.querySelector("#name").focus();
+const nameElement = document.querySelector("#name");
+nameElement.focus();
 
 /*Job Role Section
 The "Job Role" section has an <input type="text"> field where users can enter a custom job role. If the user selects "Other" in the "Job Role" drop-down menu, they can enter info into the "Other job role" text field. This field should be hidden by default and only be displayed if "Other" is selected in the drop-down menu.
@@ -69,31 +70,57 @@ const total = document.querySelector("#activities-cost");
 let totalCost = 0;
 
 //activities.addEventListener("change", () => {
-  document.querySelector('.activities').addEventListener('change', (e) => {
+document.querySelector(".activities").addEventListener("change", (e) => {
   const checkedActivity = e.target;
-  const checkedActivityCost = checkedActivity.getAttribute("data-cost");
-  
+  const checkedActivityCost = +checkedActivity.getAttribute("data-cost");
+
   console.log(activities);
 
-  for (let i = 0; i < activities.length; i++) {
-    // const activitiesCost = activities[i].getAttribute('data-cost');
-      console.log(`${i} iteration`)
-      if(activities[i].checked){
-        console.log(activities[i]);
-        console.log(`checkedActivityCost ${checkedActivityCost}`);
-        totalCost += +checkedActivityCost;
-        
-      }
-      console.log(`total ${total}`)
-   //iterate through list of checkboxes
-   //if any of the checkboxes are checked
-
-  //grad the cost and add it to the total
-  
-    }
-  
-
+  if (checkedActivity.checked) {
+    console.log(`checkedActivityCost ${checkedActivityCost}`);
+    totalCost += checkedActivityCost;
+    console.log(`Total: ${totalCost}`);
+  } else {
+    totalCost -= checkedActivityCost;
+  }
   total.innerHTML = `Total: ${totalCost}`;
 });
 
+//Program the "I'm going to pay with" <select> element to listen for user changes.
 
+//When a change is detected, hide all payment sections in the form’s UI except the selected one.
+
+const creditCard = document.querySelector(".credit-card");
+const payPal= document.querySelector(".paypal");
+const bitcoin= document.querySelector(".bitcoin");
+//why didn't the id work?
+
+//sets default to credit card selection
+const paymentMethod = document.querySelector('#payment');
+paymentMethod[1].selected = 'true';
+
+creditCard.style.display= 'block';
+payPal.style.display= 'none';
+bitcoin.style.display= 'none';
+//console.log(paymentMethod.children);
+
+//paymentMethod.children.setAttribute('hidden', true);
+
+
+paymentMethod.addEventListener("change", (e) => {
+  const paymentSelection = e.target.value;
+  console.log(paymentSelection);
+
+  if (paymentSelection == 'credit-card') {
+    creditCard.style.display= 'block';
+    payPal.style.display= 'none';
+    bitcoin.style.display= 'none';
+  }else{
+    creditCard.style.display= 'none';
+    paymentMethod.style.display='block';
+ 
+  }
+});
+
+
+const form = document.querySelector('form');
