@@ -116,52 +116,41 @@ form.addEventListener("submit", (event) => {
     nameElement.value
   );
   const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
+  
   const cardIsValid = /^\d{13,16}$/.test(cardNumber.value);
   const zipIsValid = /^\d{5}$/.test(zipCode.value);
   const cvvIsValid = /^\d{3}$/.test(cvv.value);
-  const activityIsValid = isActivitySelected();
+  const activityIsValid = totalCost >0;
 
-  if ((paymentMethod[1].selected = "true")) {
+  if (paymentMethod.value === "credit-card") {
+
     visualValidation(cardIsValid, cardNumber, "cardNumber");
     visualValidation(zipIsValid, zipCode, "zipCode");
     visualValidation(cvvIsValid, cvv, "cvv");
   }
 
-  function isActivitySelected() {
-    const activity = activities.document.querySelector(
-      "input[type=checkboxes]"
-    );
-    for (checkbox in checkboxes) {
-      if (checkbox.checked) {
-        return true;
-      }
-    }
-  }
-
   const activitiesFieldset = document.querySelector("#activities");
+    const activitiesBox = activitiesFieldset.querySelector('#activities-box');
 
-  if (activityIsValid) {
-    activitiesFieldset.classList.add("valid");
-    activitiesFieldset.classList.remove("not-valid");
-  } else {
-    activitiesFieldset.classList.add("not-valid");
-    activitiesFieldset.classList.add("valid");
-  }
 
   if (
     !nameIsValid ||
     !emailIsValid ||
-    !cardIsValid ||
-    !zipIsValid ||
-    !cvvIsValid
+    !activityIsValid
   ) {
     event.preventDefault();
-  } else {
+  } 
+  if (paymentMethod.value === "credit-card" && !cardIsValid|| !cvvIsValid || !zipIsValid){
+      event.preventDefault();
+      console.log(paymentMethod.value);
   }
+
+
 
   //Calls visual validation function
   visualValidation(nameIsValid, nameElement, "name");
   visualValidation(emailIsValid, email, "email");
+  visualValidation(activityIsValid, activitiesBox, 'activity');
   //visualValidation(formIsValid, form);
 });
 
