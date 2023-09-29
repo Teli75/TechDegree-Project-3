@@ -32,17 +32,15 @@ designSelectElement.addEventListener("change", (event) => {
   //colorSelectElement.disabled='false';
   colorSelectElement.removeAttribute("disabled");
 
-  
   for (let i = 1; i < colorOptions.length; i++) {
     const designTheme = event.target.value;
     const colorTheme = colorSelectElement[i].getAttribute("data-theme");
     //<select id="color">
     //<option selected hidden>Select a design theme above</option>
 
-
     //Displays colors available if theme matches
     if (colorTheme == designTheme) {
-      colorSelectElement[0].selected=true;
+      colorSelectElement[0].selected = true;
       colorSelectElement[i].removeAttribute("hidden");
     } else {
       colorSelectElement[i].hidden = true;
@@ -60,7 +58,6 @@ let totalCost = 0;
 document.querySelector(".activities").addEventListener("change", (e) => {
   const checkedActivity = e.target;
   const checkedActivityCost = +checkedActivity.getAttribute("data-cost");
-
 
   if (checkedActivity.checked) {
     //console.log(`checkedActivityCost ${checkedActivityCost}`);
@@ -94,11 +91,13 @@ paymentMethod.addEventListener("change", (e) => {
     creditCard.style.display = "block";
     payPal.style.display = "none";
     bitcoin.style.display = "none";
-  } if(paymentSelection == "paypal") {
+  }
+  if (paymentSelection == "paypal") {
     payPal.style.display = "block";
     creditCard.style.display = "none";
     bitcoin.style.display = "none";
-  } if(paymentSelection == "bitcoin") {
+  }
+  if (paymentSelection == "bitcoin") {
     bitcoin.style.display = "block";
     creditCard.style.display = "none";
     paypal.style.display = "none";
@@ -113,45 +112,70 @@ const cvv = document.querySelector("#cvv");
 
 //validation of input fields
 form.addEventListener("submit", (event) => {
- 
-  const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameElement.value);
+  const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(
+    nameElement.value
+  );
   const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
   const cardIsValid = /^\d{13,16}$/.test(cardNumber.value);
   const zipIsValid = /^\d{5}$/.test(zipCode.value);
   const cvvIsValid = /^\d{3}$/.test(cvv.value);
+  const activityIsValid = isActivitySelected();
 
-  if(activities.checked == true){
-
+  if ((paymentMethod[1].selected = "true")) {
+    visualValidation(cardIsValid, cardNumber, "cardNumber");
+    visualValidation(zipIsValid, zipCode, "zipCode");
+    visualValidation(cvvIsValid, cvv, "cvv");
   }
-  
 
-  if(!nameIsValid || !emailIsValid || !cardIsValid || !zipIsValid || !cvvIsValid){
+  function isActivitySelected() {
+    const activity = activities.document.querySelector(
+      "input[type=checkboxes]"
+    );
+    for (checkbox in checkboxes) {
+      if (checkbox.checked) {
+        return true;
+      }
+    }
+  }
+
+  const activitiesFieldset = document.querySelector("#activities");
+
+  if (activityIsValid) {
+    activitiesFieldset.classList.add("valid");
+    activitiesFieldset.classList.remove("not-valid");
+  } else {
+    activitiesFieldset.classList.add("not-valid");
+    activitiesFieldset.classList.add("valid");
+  }
+
+  if (
+    !nameIsValid ||
+    !emailIsValid ||
+    !cardIsValid ||
+    !zipIsValid ||
+    !cvvIsValid
+  ) {
     event.preventDefault();
   } else {
-    
   }
-   
+
   //Calls visual validation function
-  visualValidation(nameIsValid, nameElement, 'name');
-  visualValidation(emailIsValid, email, 'email');
-  visualValidation(cardIsValid, cardNumber, 'cardNumber');
-  visualValidation(zipIsValid, zipCode, 'zipCode');
-  visualValidation(cvvIsValid, cvv, 'cvv');
+  visualValidation(nameIsValid, nameElement, "name");
+  visualValidation(emailIsValid, email, "email");
   //visualValidation(formIsValid, form);
 });
 
 // This function add or removes valid class depending on validation
 function visualValidation(elementIsValid, element, string) {
   if (elementIsValid) {
-    element.parentElement.classList.add('valid');
-    element.parentElement.classList.remove('not-valid');
-    element.parentElement.lastElementChild.style.display='none';
+    element.parentElement.classList.add("valid");
+    element.parentElement.classList.remove("not-valid");
+    element.parentElement.lastElementChild.style.display = "none";
     console.log(`${string} is valid`);
-   
   }
   if (!elementIsValid) {
-    element.parentElement.classList.add('not-valid');
-    element.parentElement.classList.remove('valid');
+    element.parentElement.classList.add("not-valid");
+    element.parentElement.classList.remove("valid");
     element.parentElement.lastElementChild.style.display = "block";
     console.log(`${string} is NOT valid`);
   }
