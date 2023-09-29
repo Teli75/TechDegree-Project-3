@@ -140,12 +140,13 @@ form.addEventListener("submit", (event) => {
   ) {
     event.preventDefault();
   } 
-  if (paymentMethod.value === "credit-card" && !cardIsValid|| !cvvIsValid || !zipIsValid){
-      event.preventDefault();
-      console.log(paymentMethod.value);
+
+  if (
+    paymentMethod.value === "credit-card" &&
+    (!cardIsValid || !cvvIsValid || !zipIsValid)
+  ) {
+    event.preventDefault();
   }
-
-
 
   //Calls visual validation function
   visualValidation(nameIsValid, nameElement, "name");
