@@ -1,5 +1,3 @@
-console.log("Test");
-
 // Name Field
 // When the page first loads, the first text field should have the focus state by default to prompt the user.
 
@@ -12,78 +10,90 @@ The "Job Role" section has an <input type="text"> field where users can enter a 
 
 Hide the "text field" with the id of "other-job-role" so it is not displayed when the form first loads.*/
 
-
 //const otherJobSelected = document.querySelector('option[value="Other"]');
 //Program the "Job Role" <select> element to listen for changes. When a change is detected, display/hide the "text field" based on the selection in the drop-down menu.
 
 const jobRoleSelect = document.querySelector("#title");
-const otherJobRole = document.querySelector('#other-job-role');
+const otherJobRole = document.querySelector("#other-job-role");
 
 //hides "other job role" text box by default
-otherJobRole.hidden='true';
+otherJobRole.hidden = "true";
 
 // console.log(jobRoleSelect);
 // console.log(otherJobRole);
 
 jobRoleSelect.addEventListener("change", (e) => {
-   console.log(`you selected: ${e.target.value}`);
+  console.log(`you selected: ${e.target.value}`);
 
-
-    if (e.target.value == "other") {
-      otherJobRole.style.display="block"
-      otherJobRole.removeAttribute('hidden');
-      
-    } else {
-      //otherJobRole.style.visibility='hidden';
-      //otherJobRole.removeAttribute('style[display: block]');
-      otherJobRole.style.display='none';
-      otherJobRole.hidden='true';
-      //otherJobRole.display='none'
-    }
+  if (e.target.value == "other") {
+    otherJobRole.style.display = "block";
+    otherJobRole.removeAttribute("hidden");
+  } else {
+    //otherJobRole.style.visibility='hidden';
+    //otherJobRole.removeAttribute('style[display: block]');
+    otherJobRole.style.display = "none";
+    otherJobRole.hidden = "true";
+    //otherJobRole.display='none'
+  }
 });
 
 //Allows user to access colors available depending on design chosen
-const designSelectElement = document.querySelector('#design');
-const colorSelectElement = document.querySelector('#color');
+const designSelectElement = document.querySelector("#design");
+const colorSelectElement = document.querySelector("#color");
 const colorOptions = colorSelectElement.children;
 
-colorSelectElement.disabled='true';
+colorSelectElement.disabled = "true";
 
-designSelectElement.addEventListener('change', (event) => {
+designSelectElement.addEventListener("change", (event) => {
   //colorSelectElement.disabled='false';
-  colorSelectElement.removeAttribute('disabled');
-  for (let i=1; i < colorOptions.length; i++){
-
+  colorSelectElement.removeAttribute("disabled");
+  for (let i = 1; i < colorOptions.length; i++) {
     const designTheme = event.target.value;
-    const colorTheme = colorSelectElement[i].getAttribute('data-theme');
-    
+    const colorTheme = colorSelectElement[i].getAttribute("data-theme");
+
     console.log(`current design theme${i}: ${designTheme}`);
     console.log(`current color theme${i}: ${colorTheme}`);
 
     //Displays colors available if theme matches
-    if(colorTheme == designTheme){
+    if (colorTheme == designTheme) {
       console.log(colorSelectElement[i]);
-     colorSelectElement[i].removeAttribute('hidden');
-        
+      colorSelectElement[i].removeAttribute("hidden");
     } else {
-      colorSelectElement[i].hidden='true';
+      colorSelectElement[i].hidden = "true";
     }
   }
-  });
+});
 
-const registerForActivities = document.querySelector('#activities');
-const total = document.querySelector('#activities-cost');
-const totalCost = 0;
+const activities = document.querySelectorAll("#activities input");
+const total = document.querySelector("#activities-cost");
+let totalCost = 0;
 
-registerForActivities.addEventListener('change', () => {
-  const costPerActivity = registerForActivities.getAttribute(+'data-cost');
-})
+//activities.addEventListener("change", () => {
+  document.querySelector('.activities').addEventListener('change', (e) => {
+  const checkedActivity = e.target;
+  const checkedActivityCost = checkedActivity.getAttribute("data-cost");
+  
+  console.log(activities);
 
-console.log(registerForActivities);
-console.log(total);
+  for (let i = 0; i < activities.length; i++) {
+    // const activitiesCost = activities[i].getAttribute('data-cost');
+      console.log(`${i} iteration`)
+      if(activities[i].checked){
+        console.log(activities[i]);
+        console.log(`checkedActivityCost ${checkedActivityCost}`);
+        totalCost += +checkedActivityCost;
+        
+      }
+      console.log(`total ${total}`)
+   //iterate through list of checkboxes
+   //if any of the checkboxes are checked
 
+  //grad the cost and add it to the total
+  
+    }
+  
 
-
-//
+  total.innerHTML = `Total: ${totalCost}`;
+});
 
 
